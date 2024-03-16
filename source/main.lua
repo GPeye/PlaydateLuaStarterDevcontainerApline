@@ -1,5 +1,5 @@
 import "dvd" -- DEMO
-local dvd = dvd(1, -1) -- DEMO
+local dvd = dvd(2, -2) -- DEMO
 
 local gfx <const> = playdate.graphics
 local font = gfx.font.new('font/Mini Sans 2X') -- DEMO

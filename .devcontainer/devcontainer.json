@@ -1,26 +1,16 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the
-// README at: https://github.com/devcontainers/templates/tree/main/src/alpine
 {
 	"name": "Alpine",
-	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"image": "mcr.microsoft.com/devcontainers/base:alpine-3.19",
-
-	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {},
-
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
-
 	"mounts": [
-		"source=/etc/PlaydateSDK,target=/etc/PlaydateSDK,type=bind,consistency=cached"
+		"source=/etc/PlaydateSDK,target=/etc/PlaydateSDK,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached"
 	],
 	"containerEnv": {
 		"PLAYDATE_SDK_PATH": "/etc/PlaydateSDK"
 	},
-	"postCreateCommand": "uname -a && apk update && apk upgrade && apk add alpine-sdk xvfb cmake newlib-arm-none-eabi libc6-compat && $PLAYDATE_SDK_PATH/setup.sh",
-	// Configure tool-specific properties.
-	// "customizations": {},
-
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	"remoteUser": "root"
+	"remoteEnv": {
+		"LOCAL_WORKSPACE": "${localWorkspaceFolder}",
+		"LOCAL_USER": "${localEnv:USER}"
+	},
+	"postCreateCommand": "sudo apk update && sudo apk upgrade && sudo apk add build-base libc6-compat && sudo $PLAYDATE_SDK_PATH/setup.sh"
 }
